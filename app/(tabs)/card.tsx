@@ -11,8 +11,8 @@ export default function CardScreen() {
 
   return (
     <Screen testID="card-screen" scroll contentStyle={{ paddingHorizontal: t.spacing.lg }}>
-      <View style={{ paddingTop: t.spacing.xl, marginBottom: t.spacing.xl }}>
-        <Text variant="title">Membership Card</Text>
+      <View style={{ paddingTop: t.spacing.xxl, marginBottom: t.spacing.xl }}>
+        <Text variant="title">Membership card</Text>
       </View>
 
       <MembershipQR member={MOCK_MEMBER} testID="membership-qr-card" />
@@ -21,9 +21,9 @@ export default function CardScreen() {
         variant="caption"
         color={t.colors.onSurfaceMuted}
         align="center"
-        style={{ marginTop: t.spacing.lg }}
+        style={{ marginTop: t.spacing.xl, paddingHorizontal: t.spacing.xl }}
       >
-        Present this QR code at any participating location to earn or redeem your points.
+        Show this code at the counter to earn or redeem points.
       </Text>
     </Screen>
   );

@@ -3,7 +3,6 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from '@/src/theme/useTheme';
 import { Screen } from '@/src/components/ui/Screen';
 import { Text } from '@/src/components/ui/Text';
-import { Card } from '@/src/components/ui/Card';
 import { PointsBalance } from '@/src/components/domain/PointsBalance';
 import { TierProgress } from '@/src/components/domain/TierProgress';
 import { RewardCard } from '@/src/components/domain/RewardCard';
@@ -18,33 +17,39 @@ export default function HomeScreen() {
 
   return (
     <Screen testID="home-screen" scroll>
-      <View style={{ paddingHorizontal: t.spacing.lg, paddingTop: t.spacing.xl }}>
+      <View style={{ paddingHorizontal: t.spacing.lg, paddingTop: t.spacing.xxl }}>
         <Text variant="caption" color={t.colors.onSurfaceMuted}>
-          Welcome back
+          Welcome back, {MOCK_MEMBER.name}
         </Text>
-        <Text variant="title">{MOCK_MEMBER.name}</Text>
       </View>
 
-      <View style={{ paddingHorizontal: t.spacing.lg, marginTop: t.spacing.xl }}>
-        <Card elevated>
-          <PointsBalance points={MOCK_MEMBER.points} testID="home-points-balance" />
-          <View style={{ marginTop: t.spacing.xl }}>
-            <TierProgress
-              points={MOCK_MEMBER.points}
-              nextTierPoints={MOCK_MEMBER.nextTierPoints}
-              tier={MOCK_MEMBER.tier}
-              testID="home-tier-progress"
-            />
-          </View>
-        </Card>
+      <View
+        style={{
+          paddingHorizontal: t.spacing.lg,
+          paddingTop: t.spacing.xl,
+          paddingBottom: t.spacing.xxl,
+          borderBottomWidth: 1,
+          borderBottomColor: t.colors.border,
+        }}
+      >
+        <PointsBalance points={MOCK_MEMBER.points} testID="home-points-balance" />
+        <View style={{ marginTop: t.spacing.lg }}>
+          <TierProgress
+            points={MOCK_MEMBER.points}
+            nextTierPoints={MOCK_MEMBER.nextTierPoints}
+            tier={MOCK_MEMBER.tier}
+            testID="home-tier-progress"
+          />
+        </View>
       </View>
 
-      <View style={{ marginTop: t.spacing.xxl }}>
+      <View style={{ marginTop: t.spacing.xl }}>
         <Text
-          variant="heading"
+          variant="label"
+          color={t.colors.onSurfaceMuted}
           style={{ paddingHorizontal: t.spacing.lg, marginBottom: t.spacing.md }}
         >
-          Featured Rewards
+          Featured rewards
         </Text>
         <ScrollView
           horizontal
@@ -62,18 +67,13 @@ export default function HomeScreen() {
         </ScrollView>
       </View>
 
-      <View style={{ marginTop: t.spacing.xxl }}>
-        <Text
-          variant="heading"
-          style={{ paddingHorizontal: t.spacing.lg, marginBottom: t.spacing.sm }}
-        >
-          Recent Activity
+      <View style={{ marginTop: t.spacing.xxl, paddingHorizontal: t.spacing.lg }}>
+        <Text variant="label" color={t.colors.onSurfaceMuted} style={{ marginBottom: t.spacing.xs }}>
+          Recent activity
         </Text>
-        <Card style={{ marginHorizontal: t.spacing.lg, padding: 0 }}>
-          {recentActivities.map(activity => (
-            <ActivityRow key={activity.id} activity={activity} />
-          ))}
-        </Card>
+        {recentActivities.map(activity => (
+          <ActivityRow key={activity.id} activity={activity} />
+        ))}
       </View>
     </Screen>
   );

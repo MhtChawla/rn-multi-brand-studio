@@ -13,12 +13,12 @@ export function PointsBalance({ points, testID }: PointsBalanceProps) {
   const formatted = points.toLocaleString('en-US');
 
   return (
-    <View testID={testID} style={{ alignItems: 'center', gap: t.spacing.xs }}>
-      <Text variant="display" color={t.colors.primary}>
-        {formatted}
-      </Text>
+    <View testID={testID} style={{ gap: t.spacing.sm }}>
       <Text variant="label" color={t.colors.onSurfaceMuted}>
-        POINTS BALANCE
+        Your points
+      </Text>
+      <Text variant="display" tabular>
+        {formatted}
       </Text>
     </View>
   );

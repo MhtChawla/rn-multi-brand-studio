@@ -1,4 +1,4 @@
-import { Inter, typeScale } from './typography';
+import { Inter, typeScale, type TypeVariant } from './typography';
 
 export interface BrandSeedColors {
   primary: string;
@@ -14,7 +14,9 @@ export interface Theme {
   colors: {
     primary: string;
     onPrimary: string;
+    onPrimaryMuted: string;
     primaryMuted: string;
+    qrWell: string;
     secondary: string;
     accent: string;
     background: string;
@@ -34,7 +36,7 @@ export interface Theme {
     family: { regular: string; medium: string; bold: string };
     variant: Record<
       'display' | 'title' | 'heading' | 'body' | 'caption' | 'label',
-      { fontFamily: string; fontSize: number; lineHeight: number }
+      TypeVariant
     >;
   };
   elevation: {
@@ -77,7 +79,9 @@ export function buildTheme(seed: BrandSeedColors): Theme {
     colors: {
       primary: seed.primary,
       onPrimary: seed.onPrimary,
+      onPrimaryMuted: mix(seed.onPrimary, seed.primary, 0.35),
       primaryMuted: mix(seed.primary, seed.surface, 0.7),
+      qrWell: mix(seed.onPrimary, seed.primary, 0.05),
       secondary: seed.secondary,
       accent: seed.accent,
       background: seed.background,

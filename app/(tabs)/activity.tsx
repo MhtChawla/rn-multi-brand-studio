@@ -11,7 +11,7 @@ function monthLabel(dateISO: string): string {
   const parts = dateISO.split('-');
   const year = parts[0] ?? '2024';
   const month = parts[1] ?? '01';
-  const d = new Date(`${year}-${month}-01`);
+  const d = new Date(`${year}-${month}-01T00:00:00`);
   return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
@@ -41,16 +41,17 @@ export default function ActivityScreen() {
         sections={sections}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
+        stickySectionHeadersEnabled={false}
         ListHeaderComponent={
-          <View style={{ paddingHorizontal: t.spacing.lg, paddingTop: t.spacing.xl, paddingBottom: t.spacing.md }}>
+          <View style={{ paddingTop: t.spacing.xxl, paddingBottom: t.spacing.md }}>
             <Text variant="title">Activity</Text>
           </View>
         }
         renderSectionHeader={({ section }) => (
           <View
             style={{
-              paddingHorizontal: t.spacing.lg,
-              paddingVertical: t.spacing.sm,
+              paddingTop: t.spacing.xl,
+              paddingBottom: t.spacing.sm,
               backgroundColor: t.colors.background,
             }}
           >
@@ -62,7 +63,10 @@ export default function ActivityScreen() {
         renderItem={({ item }) => (
           <ActivityRow activity={item} testID={`activity-row-${item.id}`} />
         )}
-        contentContainerStyle={{ paddingBottom: t.spacing.xxl }}
+        contentContainerStyle={{
+          paddingHorizontal: t.spacing.lg,
+          paddingBottom: t.spacing.xxl,
+        }}
       />
     </Screen>
   );

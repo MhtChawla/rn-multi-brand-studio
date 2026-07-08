@@ -20,48 +20,49 @@ export default function RewardsScreen() {
 
   return (
     <Screen testID="rewards-screen">
-      <View style={{ paddingTop: t.spacing.xl }}>
-        <Text variant="title" style={{ paddingHorizontal: t.spacing.lg, marginBottom: t.spacing.lg }}>
+      <View style={{ paddingTop: t.spacing.xxl, flex: 1 }}>
+        <Text variant="title" style={{ paddingHorizontal: t.spacing.lg }}>
           Rewards
         </Text>
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: t.spacing.lg,
-            gap: t.spacing.sm,
-            marginBottom: t.spacing.lg,
-          }}
-        >
-          {ALL_CATEGORIES.map(cat => {
-            const isSelected = cat === selectedCategory;
-            const chipId = cat.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            return (
-              <Pressable
-                key={cat}
-                testID={`filter-chip-${chipId}`}
-                onPress={() => setSelectedCategory(cat)}
-                style={({ pressed }) => ({
-                  paddingHorizontal: t.spacing.md,
-                  paddingVertical: t.spacing.sm,
-                  borderRadius: t.radius.full,
-                  backgroundColor: isSelected ? t.colors.primary : t.colors.surfaceElevated,
-                  borderWidth: 1,
-                  borderColor: isSelected ? t.colors.primary : t.colors.border,
-                  opacity: pressed ? 0.75 : 1,
-                })}
-              >
-                <Text
-                  variant="label"
-                  color={isSelected ? t.colors.onPrimary : t.colors.onSurface}
+        <View style={{ marginTop: t.spacing.lg, marginBottom: t.spacing.lg }}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: t.spacing.lg,
+              gap: t.spacing.sm,
+            }}
+          >
+            {ALL_CATEGORIES.map(cat => {
+              const isSelected = cat === selectedCategory;
+              const chipId = cat.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+              return (
+                <Pressable
+                  key={cat}
+                  testID={`filter-chip-${chipId}`}
+                  onPress={() => setSelectedCategory(cat)}
+                  style={({ pressed }) => ({
+                    paddingHorizontal: t.spacing.md,
+                    paddingVertical: t.spacing.xs + t.spacing.xs / 2,
+                    borderRadius: t.radius.sm,
+                    backgroundColor: isSelected ? t.colors.primary : 'transparent',
+                    borderWidth: 1,
+                    borderColor: isSelected ? t.colors.primary : t.colors.border,
+                    opacity: pressed ? 0.75 : 1,
+                  })}
                 >
-                  {cat}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
+                  <Text
+                    variant="caption"
+                    color={isSelected ? t.colors.onPrimary : t.colors.onSurfaceMuted}
+                  >
+                    {cat}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
 
         <FlatList
           data={filtered}

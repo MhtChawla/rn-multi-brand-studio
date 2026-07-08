@@ -7,6 +7,7 @@ interface TextProps {
   variant?: TypographyVariant;
   color?: string;
   align?: TextStyle['textAlign'];
+  tabular?: boolean;
   children?: React.ReactNode;
   testID?: string;
   style?: TextStyle;
@@ -17,6 +18,7 @@ export function Text({
   variant = 'body',
   color,
   align,
+  tabular = false,
   children,
   testID,
   style,
@@ -33,6 +35,7 @@ export function Text({
         variantStyle,
         { color: color ?? t.colors.onSurface },
         align ? { textAlign: align } : undefined,
+        tabular ? { fontVariant: ['tabular-nums'] } : undefined,
         style,
       ]}
     >

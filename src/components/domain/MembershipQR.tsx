@@ -2,8 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useTheme } from '@/src/theme/useTheme';
-import { Card } from '@/src/components/ui/Card';
-import { Badge } from '@/src/components/ui/Badge';
 import { Text } from '@/src/components/ui/Text';
 import type { Member, Tier } from '@/src/data/types';
 
@@ -20,27 +18,43 @@ interface MembershipQRProps {
 
 export function MembershipQR({ member, testID }: MembershipQRProps) {
   const t = useTheme();
-  const qrSize = t.spacing.xxxl * 4;
+  const qrSize = t.spacing.xxxl * 3.5;
 
   return (
-    <Card elevated testID={testID ?? 'membership-qr'} style={{ gap: t.spacing.lg }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text variant="heading">{member.name}</Text>
-        <Badge label={TIER_LABEL[member.tier]} variant="primary" />
-      </View>
-
+    <View
+      testID={testID ?? 'membership-qr'}
+      style={{
+        backgroundColor: t.colors.primary,
+        borderRadius: t.radius.lg,
+        padding: t.spacing.xl,
+        ...t.elevation.raised,
+      }}
+    >
       <View
         style={{
-          height: 1,
-          backgroundColor: t.colors.border,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
         }}
-      />
+      >
+        <View style={{ gap: t.spacing.xs }}>
+          <Text variant="label" color={t.colors.onPrimaryMuted}>
+            Member
+          </Text>
+          <Text variant="heading" color={t.colors.onPrimary}>
+            {member.name}
+          </Text>
+        </View>
+        <Text variant="label" color={t.colors.onPrimaryMuted}>
+          {TIER_LABEL[member.tier]}
+        </Text>
+      </View>
 
-      <View style={{ alignItems: 'center', gap: t.spacing.md }}>
+      <View style={{ alignItems: 'center', marginVertical: t.spacing.xl }}>
         <View
           style={{
-            backgroundColor: t.colors.onPrimary,
-            padding: t.spacing.md,
+            backgroundColor: t.colors.qrWell,
+            padding: t.spacing.lg,
             borderRadius: t.radius.md,
           }}
         >
@@ -48,13 +62,27 @@ export function MembershipQR({ member, testID }: MembershipQRProps) {
             value={member.memberId}
             size={qrSize}
             color={t.colors.background}
-            backgroundColor={t.colors.onPrimary}
+            backgroundColor={t.colors.qrWell}
           />
         </View>
-        <Text variant="caption" color={t.colors.onSurfaceMuted} align="center">
-          {member.memberId}
-        </Text>
       </View>
-    </Card>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+        }}
+      >
+        <View style={{ gap: t.spacing.xs }}>
+          <Text variant="label" color={t.colors.onPrimaryMuted}>
+            Member ID
+          </Text>
+          <Text variant="body" color={t.colors.onPrimary} tabular>
+            {member.memberId}
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 }

@@ -22,16 +22,16 @@ export default function ProfileScreen() {
 
   return (
     <Screen testID="profile-screen" scroll contentStyle={{ paddingHorizontal: t.spacing.lg }}>
-      <View style={{ paddingTop: t.spacing.xl, marginBottom: t.spacing.xl }}>
+      <View style={{ paddingTop: t.spacing.xxl, marginBottom: t.spacing.xl }}>
         <Text variant="title">Profile</Text>
       </View>
 
-      <Card style={{ gap: t.spacing.md, marginBottom: t.spacing.xl }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View>
+      <Card elevated style={{ gap: t.spacing.lg, marginBottom: t.spacing.xxl }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <View style={{ gap: t.spacing.xs }}>
             <Text variant="heading">{MOCK_MEMBER.name}</Text>
-            <Text variant="caption" color={t.colors.onSurfaceMuted} style={{ marginTop: t.spacing.xs }}>
-              Member ID: {MOCK_MEMBER.memberId}
+            <Text variant="caption" color={t.colors.onSurfaceMuted} tabular>
+              {MOCK_MEMBER.memberId}
             </Text>
           </View>
           <Badge label={tierLabel} variant="primary" />
@@ -40,63 +40,55 @@ export default function ProfileScreen() {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingTop: t.spacing.md,
+            paddingTop: t.spacing.lg,
             borderTopWidth: 1,
             borderTopColor: t.colors.border,
+            gap: t.spacing.xxl,
           }}
         >
-          <View style={{ alignItems: 'center' }}>
-            <Text variant="heading" color={t.colors.primary}>
-              {MOCK_MEMBER.points.toLocaleString('en-US')}
-            </Text>
-            <Text variant="caption" color={t.colors.onSurfaceMuted}>
+          <View style={{ gap: t.spacing.xs }}>
+            <Text variant="label" color={t.colors.onSurfaceMuted}>
               Points
             </Text>
+            <Text variant="heading" tabular>
+              {MOCK_MEMBER.points.toLocaleString('en-US')}
+            </Text>
           </View>
-          <View style={{ alignItems: 'center' }}>
-            <Text variant="heading" color={t.colors.primary}>
+          <View style={{ gap: t.spacing.xs }}>
+            <Text variant="label" color={t.colors.onSurfaceMuted}>
+              Next tier at
+            </Text>
+            <Text variant="heading" tabular>
               {MOCK_MEMBER.nextTierPoints.toLocaleString('en-US')}
-            </Text>
-            <Text variant="caption" color={t.colors.onSurfaceMuted}>
-              Next Tier
-            </Text>
-          </View>
-          <View style={{ alignItems: 'center' }}>
-            <Text variant="heading" color={t.colors.accent}>
-              {tierLabel}
-            </Text>
-            <Text variant="caption" color={t.colors.onSurfaceMuted}>
-              Status
             </Text>
           </View>
         </View>
       </Card>
 
-      <Text variant="label" color={t.colors.onSurfaceMuted} style={{ marginBottom: t.spacing.sm }}>
-        SETTINGS
+      <Text variant="label" color={t.colors.onSurfaceMuted} style={{ marginBottom: t.spacing.xs }}>
+        Settings
       </Text>
-      <Card style={{ padding: 0, overflow: 'hidden' }}>
-        <ListItem
-          title="Notifications"
-          subtitle="Manage push notification preferences"
-          right={chevron}
-          testID="settings-notifications"
-        />
-        <ListItem
-          title="Language"
-          subtitle="English"
-          right={chevron}
-          testID="settings-language"
-        />
-        <ListItem
-          title="About"
-          subtitle="App version 1.0.0"
-          right={chevron}
-          testID="settings-about"
-          style={{ borderBottomWidth: 0 }}
-        />
-      </Card>
+      <ListItem
+        title="Notifications"
+        subtitle="Push notification preferences"
+        right={chevron}
+        testID="settings-notifications"
+        style={{ paddingHorizontal: 0 }}
+      />
+      <ListItem
+        title="Language"
+        subtitle="English"
+        right={chevron}
+        testID="settings-language"
+        style={{ paddingHorizontal: 0 }}
+      />
+      <ListItem
+        title="About"
+        subtitle="App version 1.0.0"
+        right={chevron}
+        testID="settings-about"
+        style={{ paddingHorizontal: 0, borderBottomWidth: 0 }}
+      />
     </Screen>
   );
 }

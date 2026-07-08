@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, View } from 'react-native';
+import { AccessibilityInfo, Animated, View } from 'react-native';
 import { useTheme } from '@/src/theme/useTheme';
 
 interface ProgressBarProps {
@@ -12,11 +12,25 @@ export function ProgressBar({ progress, testID }: ProgressBarProps) {
   const animValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(animValue, {
-      toValue: Math.max(0, Math.min(1, progress)),
-      duration: 700,
-      useNativeDriver: false,
-    }).start();
+    const target = Math.max(0, Math.min(1, progress));
+    let cancelled = false;
+
+    AccessibilityInfo.isReduceMotionEnabled().then(reduceMotion => {
+      if (cancelled) return;
+      if (reduceMotion) {
+        animValue.setValue(target);
+      } else {
+        Animated.timing(animValue, {
+          toValue: target,
+          duration: 450,
+          useNativeDriver: false,
+        }).start();
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [animValue, progress]);
 
   const fillWidth = animValue.interpolate({
@@ -29,7 +43,7 @@ export function ProgressBar({ progress, testID }: ProgressBarProps) {
     <View
       testID={testID}
       style={{
-        height: t.spacing.sm,
+        height: t.spacing.xs,
         backgroundColor: t.colors.surfaceElevated,
         borderRadius: t.radius.full,
         overflow: 'hidden',
