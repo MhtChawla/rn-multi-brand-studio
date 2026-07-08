@@ -1,98 +1,80 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import { useTheme } from '@/src/theme/useTheme';
+import { Screen } from '@/src/components/ui/Screen';
+import { Text } from '@/src/components/ui/Text';
+import { Card } from '@/src/components/ui/Card';
+import { PointsBalance } from '@/src/components/domain/PointsBalance';
+import { TierProgress } from '@/src/components/domain/TierProgress';
+import { RewardCard } from '@/src/components/domain/RewardCard';
+import { ActivityRow } from '@/src/components/domain/ActivityRow';
+import { MOCK_MEMBER, MOCK_REWARDS, MOCK_ACTIVITIES } from '@/src/data/mock';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const featuredRewards = MOCK_REWARDS.slice(0, 3);
+const recentActivities = MOCK_ACTIVITIES.slice(-3).reverse();
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const t = useTheme();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  return (
+    <Screen testID="home-screen" scroll>
+      <View style={{ paddingHorizontal: t.spacing.lg, paddingTop: t.spacing.xl }}>
+        <Text variant="caption" color={t.colors.onSurfaceMuted}>
+          Welcome back
+        </Text>
+        <Text variant="title">{MOCK_MEMBER.name}</Text>
+      </View>
+
+      <View style={{ paddingHorizontal: t.spacing.lg, marginTop: t.spacing.xl }}>
+        <Card elevated>
+          <PointsBalance points={MOCK_MEMBER.points} testID="home-points-balance" />
+          <View style={{ marginTop: t.spacing.xl }}>
+            <TierProgress
+              points={MOCK_MEMBER.points}
+              nextTierPoints={MOCK_MEMBER.nextTierPoints}
+              tier={MOCK_MEMBER.tier}
+              testID="home-tier-progress"
+            />
+          </View>
+        </Card>
+      </View>
+
+      <View style={{ marginTop: t.spacing.xxl }}>
+        <Text
+          variant="heading"
+          style={{ paddingHorizontal: t.spacing.lg, marginBottom: t.spacing.md }}
+        >
+          Featured Rewards
+        </Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: t.spacing.lg,
+            gap: t.spacing.md,
+          }}
+        >
+          {featuredRewards.map(reward => (
+            <View key={reward.id} style={{ width: t.spacing.xxxl * 5 }}>
+              <RewardCard reward={reward} testID={`reward-card-${reward.id}`} />
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
+      <View style={{ marginTop: t.spacing.xxl }}>
+        <Text
+          variant="heading"
+          style={{ paddingHorizontal: t.spacing.lg, marginBottom: t.spacing.sm }}
+        >
+          Recent Activity
+        </Text>
+        <Card style={{ marginHorizontal: t.spacing.lg, padding: 0 }}>
+          {recentActivities.map(activity => (
+            <ActivityRow key={activity.id} activity={activity} />
+          ))}
+        </Card>
+      </View>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

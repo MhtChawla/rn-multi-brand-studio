@@ -1,0 +1,101 @@
+import type { Member, Reward, Activity } from './types';
+
+export const MOCK_MEMBER: Member = {
+  id: 'member-1',
+  name: 'Alex Meyer',
+  points: 2450,
+  tier: 'gold',
+  nextTierPoints: 5000,
+  memberId: 'MBR-2024-88417',
+};
+
+export const MOCK_REWARDS: Reward[] = [
+  {
+    id: 'r-001',
+    title: 'Free Cappuccino',
+    description: 'Enjoy a complimentary cappuccino at any participating location',
+    pointsCost: 150,
+    category: 'Dining',
+  },
+  {
+    id: 'r-002',
+    title: '10% Off Your Meal',
+    description: 'Get 10% off your next dining experience with us',
+    pointsCost: 300,
+    category: 'Dining',
+  },
+  {
+    id: 'r-003',
+    title: 'Dessert on Us',
+    description: 'A complimentary dessert of your choice with your main course',
+    pointsCost: 200,
+    category: 'Dining',
+  },
+  {
+    id: 'r-004',
+    title: '€5 Store Credit',
+    description: 'Apply €5 credit directly to your next purchase',
+    pointsCost: 500,
+    category: 'Shopping',
+  },
+  {
+    id: 'r-005',
+    title: 'Free Tote Bag',
+    description: 'A premium branded canvas tote bag, yours to keep',
+    pointsCost: 250,
+    category: 'Shopping',
+  },
+  {
+    id: 'r-006',
+    title: 'Early Access Sale',
+    description: 'Shop our next sale 24 hours before everyone else',
+    pointsCost: 400,
+    category: 'Shopping',
+  },
+  {
+    id: 'r-007',
+    title: 'VIP Event Invite',
+    description: 'Exclusive invitation to a member-only evening event',
+    pointsCost: 1000,
+    category: 'Experiences',
+  },
+  {
+    id: 'r-008',
+    title: 'Behind the Scenes Tour',
+    description: 'A private guided tour of our flagship location',
+    pointsCost: 800,
+    category: 'Experiences',
+  },
+  {
+    id: 'r-009',
+    title: 'Cooking Masterclass',
+    description: 'Join a 2-hour class with our award-winning head chef',
+    pointsCost: 1200,
+    category: 'Experiences',
+  },
+  {
+    id: 'r-010',
+    title: 'Personalized Gift Box',
+    description: 'A curated gift box tailored to your member preferences',
+    pointsCost: 600,
+    category: 'Experiences',
+  },
+];
+
+export const MOCK_ACTIVITIES: Activity[] = [
+  { id: 'a-001', type: 'earn',   title: 'Welcome Bonus',       points: 200,  dateISO: '2024-11-01' },
+  { id: 'a-002', type: 'earn',   title: 'First Purchase',      points: 150,  dateISO: '2024-11-05' },
+  { id: 'a-003', type: 'redeem', title: 'Free Cappuccino',     points: -150, dateISO: '2024-11-12' },
+  { id: 'a-004', type: 'earn',   title: 'Weekend Bonus',       points: 120,  dateISO: '2024-11-16' },
+  { id: 'a-005', type: 'earn',   title: 'Refer a Friend',      points: 300,  dateISO: '2024-11-22' },
+  { id: 'a-006', type: 'redeem', title: '€5 Store Credit',     points: -500, dateISO: '2024-11-28' },
+  { id: 'a-007', type: 'earn',   title: 'Monthly Streak',      points: 100,  dateISO: '2024-12-01' },
+  { id: 'a-008', type: 'earn',   title: 'Purchase Reward',     points: 180,  dateISO: '2024-12-08' },
+  { id: 'a-009', type: 'earn',   title: 'App Check-in',        points: 50,   dateISO: '2024-12-10' },
+  { id: 'a-010', type: 'redeem', title: 'Dessert on Us',       points: -200, dateISO: '2024-12-15' },
+  { id: 'a-011', type: 'earn',   title: 'Special Promotion',   points: 500,  dateISO: '2024-12-20' },
+  { id: 'a-012', type: 'earn',   title: 'Holiday Bonus',       points: 250,  dateISO: '2024-12-24' },
+  { id: 'a-013', type: 'earn',   title: 'New Year Purchase',   points: 200,  dateISO: '2025-01-03' },
+  { id: 'a-014', type: 'earn',   title: 'Survey Completion',   points: 75,   dateISO: '2025-01-08' },
+  { id: 'a-015', type: 'redeem', title: 'Free Tote Bag',       points: -250, dateISO: '2025-01-15' },
+];

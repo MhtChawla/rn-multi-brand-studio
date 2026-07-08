@@ -4,10 +4,10 @@ Fixed scope and order. One phase per Claude Code session. Update the checkbox + 
 
 Note: Phases 1 and 2 are built together in a single session (the UI cannot exist without tokens), but are verified and tracked separately.
 
-- [ ] **Phase 1 — App shell (5 screens, mock data, polished UI)**
+- [x] **Phase 1 — App shell (5 screens, mock data, polished UI)**
   Home (points balance + tier progress), Rewards catalog, Membership card (QR), Activity history, Profile. expo-router tabs, deterministic mock data, `testID` on every screen root + interactive element. Owns: `app/`, `src/components/`, `src/data/`.
 
-- [ ] **Phase 2 — Token theming system** *(built alongside Phase 1)*
+- [x] **Phase 2 — Token theming system** *(built alongside Phase 1)*
   `Theme` type, `buildTheme()`, `ThemeProvider`, `useTheme()`, typography (Inter). Raw style values exist only in `src/theme/`. Owns: `src/theme/`, `scripts/check-token-leaks.sh`.
 
 - [ ] **Phase 3 — brand.json schema + default brand**
@@ -48,5 +48,5 @@ Note: Phases 1 and 2 are built together in a single session (the UI cannot exist
 
 ## Status
 
-Current phase: **not started**
-Last completed: —
+Current phase: **Phase 3**
+Last completed: Phase 2 (2026-07-08)
