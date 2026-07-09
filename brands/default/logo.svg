@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Rounded hexagon background -->
+  <path d="M256 32 L420 126 L420 314 L256 408 L92 314 L92 126 Z"
+        fill="#6366F1"
+        rx="24"
+        style="stroke:none"
+  />
+  <!-- Use clipPath to round the hexagon corners -->
+  <defs>
+    <clipPath id="hex-clip">
+      <path d="M256 48
+               L408 138 L408 318
+               L256 408 L104 318 L104 138 Z"/>
+    </clipPath>
+    <filter id="inner-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded hexagon -->
+  <path d="
+    M256 44
+    L256 44
+    C258.8 44 261.5 44.7 264 46
+    L404 128.5
+    C409 131.4 412 136.7 412 142.5
+    L412 369.5
+    C412 375.3 409 380.6 404 383.5
+    L264 466
+    C261.5 467.3 258.8 468 256 468
+    C253.2 468 250.5 467.3 248 466
+    L108 383.5
+    C103 380.6 100 375.3 100 369.5
+    L100 142.5
+    C100 136.7 103 131.4 108 128.5
+    L248 46
+    C250.5 44.7 253.2 44 256 44 Z
+  " fill="#6366F1"/>
+
+  <!-- C1 monogram -->
+  <!-- C letterform -->
+  <path d="
+    M218 196
+    C195 196 176 215 176 238
+    L176 274
+    C176 297 195 316 218 316
+    L238 316
+    C252 316 264 308.5 271 297
+    L252 286
+    C248 293 243.5 296 238 296
+    L218 296
+    C206 296 196 286 196 274
+    L196 238
+    C196 226 206 216 218 216
+    L238 216
+    C243.5 216 248 219 252 226
+    L271 215
+    C264 203.5 252 196 238 196 Z
+  " fill="#FFFFFF"/>
+
+  <!-- 1 letterform -->
+  <path d="
+    M305 196
+    L280 216
+    L280 236
+    L295 226
+    L295 316
+    L315 316
+    L315 196 Z
+  " fill="#FFFFFF"/>
+</svg>
