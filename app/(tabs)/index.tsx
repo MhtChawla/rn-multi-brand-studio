@@ -1,13 +1,13 @@
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { useTheme } from '@/src/theme/useTheme';
+import { ActivityRow } from '@/src/components/domain/ActivityRow';
+import { PointsBalance } from '@/src/components/domain/PointsBalance';
+import { RewardCard } from '@/src/components/domain/RewardCard';
+import { TierProgress } from '@/src/components/domain/TierProgress';
 import { Screen } from '@/src/components/ui/Screen';
 import { Text } from '@/src/components/ui/Text';
-import { PointsBalance } from '@/src/components/domain/PointsBalance';
-import { TierProgress } from '@/src/components/domain/TierProgress';
-import { RewardCard } from '@/src/components/domain/RewardCard';
-import { ActivityRow } from '@/src/components/domain/ActivityRow';
-import { MOCK_MEMBER, MOCK_REWARDS, MOCK_ACTIVITIES } from '@/src/data/mock';
+import { MOCK_ACTIVITIES, MOCK_MEMBER, MOCK_REWARDS } from '@/src/data/mock';
+import { useTheme } from '@/src/theme/useTheme';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
 
 const featuredRewards = MOCK_REWARDS.slice(0, 3);
 const recentActivities = MOCK_ACTIVITIES.slice(-3).reverse();
@@ -57,6 +57,7 @@ export default function HomeScreen() {
           contentContainerStyle={{
             paddingHorizontal: t.spacing.lg,
             gap: t.spacing.md,
+            paddingVertical: t.spacing.sm
           }}
         >
           {featuredRewards.map(reward => (

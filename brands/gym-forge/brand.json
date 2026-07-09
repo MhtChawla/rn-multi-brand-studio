@@ -1,0 +1,17 @@
+{
+  "displayName": "Forge Athletic",
+  "slug": "gym-forge",
+  "bundleId": "com.rnbrandfactory.gymforge",
+  "tagline": "Earn every rep.",
+  "locales": ["en", "de"],
+  "logo": "logo.svg",
+  "colors": {
+    "primary": "#00E5FF",
+    "onPrimary": "#0A0A0F",
+    "secondary": "#FF6B35",
+    "accent": "#FFD700",
+    "background": "#0A0A0F",
+    "surface": "#1C1C24",
+    "onSurface": "#FFFFFF"
+  }
+}

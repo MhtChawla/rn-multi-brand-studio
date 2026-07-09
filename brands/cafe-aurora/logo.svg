@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Circular background in primary coffee brown -->
+  <circle cx="256" cy="256" r="240" fill="#4A1E0A"/>
+
+  <!-- Coffee cup body -->
+  <path d="M160 220 L180 360 Q180 376 196 376 L316 376 Q332 376 332 360 L352 220 Z"
+        fill="#FAF3E0"/>
+
+  <!-- Cup handle -->
+  <path d="M332 260 Q380 260 380 300 Q380 340 332 340"
+        fill="none" stroke="#FAF3E0" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Saucer -->
+  <ellipse cx="256" cy="388" rx="120" ry="18" fill="#FAF3E0"/>
+
+  <!-- Steam wisps -->
+  <path d="M210 200 Q198 176 210 152 Q222 128 210 104"
+        fill="none" stroke="#FAF3E0" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <path d="M256 196 Q244 172 256 148 Q268 124 256 100"
+        fill="none" stroke="#FAF3E0" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <path d="M302 200 Q290 176 302 152 Q314 128 302 104"
+        fill="none" stroke="#FAF3E0" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- "A" monogram on cup face -->
+  <text x="256" y="328" font-family="Georgia, serif" font-size="100" font-weight="bold"
+        text-anchor="middle" fill="#4A1E0A" opacity="0.35">A</text>
+</svg>

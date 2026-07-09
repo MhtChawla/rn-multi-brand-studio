@@ -44,8 +44,11 @@ You are working inside **rn-brand-factory**: one Expo (SDK 54, TypeScript strict
 npm run typecheck        # tsc --noEmit
 npm run lint
 npm run check:tokens     # scripts/check-token-leaks.sh
+npm run check:brands     # scripts/check-brands.ts (once it exists, from phase 3 on)
 BRAND=default npx expo start -c   # must boot without red screen (when app is affected)
 ```
+
+Note on `tsconfig.json`: it is a phase-1 file but may be edited in later phases ONLY to `exclude` Node-context files (`scripts/`, `app.config.ts`) from the app compile, or to reference `factory/tsconfig.json`. This is the one sanctioned cross-phase edit. Any other change to it is drift.
 
 ## Commits
 

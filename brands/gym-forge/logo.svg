@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Dark square background with rounded corners -->
+  <rect x="16" y="16" width="480" height="480" rx="64" ry="64" fill="#0A0A0F"/>
+
+  <!-- Anvil base shape in primary electric cyan -->
+  <path d="M128 340 L384 340 L364 380 L148 380 Z" fill="#00E5FF"/>
+  <!-- Anvil body -->
+  <path d="M148 260 Q148 220 188 220 L324 220 Q364 220 364 260 L364 340 L148 340 Z"
+        fill="#00E5FF"/>
+  <!-- Anvil horn (left protrusion) -->
+  <path d="M148 280 Q96 280 80 300 Q96 320 148 320 Z" fill="#00E5FF"/>
+
+  <!-- Lightning bolt "F" overlay -->
+  <path d="
+    M220 150
+    L320 150
+    L320 180
+    L250 180
+    L250 215
+    L310 215
+    L310 245
+    L250 245
+    L250 360
+    L220 360
+    Z
+  " fill="#0A0A0F"/>
+
+  <!-- Lightning bolt strike through the F -->
+  <path d="M290 170 L255 255 L285 255 L248 360 L340 230 L305 230 L345 170 Z"
+        fill="#0A0A0F" opacity="0.6"/>
+</svg>

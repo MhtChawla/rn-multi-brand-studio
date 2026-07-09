@@ -76,7 +76,7 @@ rn-brand-factory/
 │   │   └── mock.ts                 [P1]  deterministic mock data (frozen dates)
 │   └── brand/
 │       ├── schema.ts               [P3]  zod BrandSchema — single source of truth
-│       └── loadBrand.ts            [P2]  runtime: reads Constants.expoConfig.extra.brand
+│       └── loadBrand.ts            [P4]  runtime: reads Constants.expoConfig.extra.brand
 ├── brands/
 │   ├── default/                    [P3]
 │   │   ├── brand.json
@@ -101,14 +101,18 @@ rn-brand-factory/
 │   │   ├── colors.ts               [P7]  hex utils, deterministic sharp-based palette fallback
 │   │   ├── frame.ts                [P10] device frame + caption compositing
 │   │   └── paths.ts                [P6]  brandDir(slug), assertInsideBrandDir guards
-│   └── templates/
-│       └── store-copy.prompt.md    [P9]
+│   ├── templates/
+│   │   └── store-copy.prompt.md    [P9]
+│   └── tsconfig.json               [P6]  Node target + @types/node for all factory scripts
 ├── fastlane/
 │   ├── Fastfile                    [P12] deliver/supply lanes reading brands/<slug>/store
 │   └── Appfile                     [P12]
 └── scripts/
-    └── check-token-leaks.sh        [P2]  grep gate: hex/rgb/fontSize literals outside src/theme
+    ├── check-token-leaks.sh        [P2]  grep gate: hex/rgb/fontSize literals outside src/theme
+    └── check-brands.ts             [P3]  tsx gate: every brands/*/brand.json parses + logo exists
 ```
+
+Note: `tsconfig.json` [P1] is legitimately touched in P3/P4 to `exclude` Node-context files (`scripts/`, `app.config.ts`) from the app compile. Once `factory/tsconfig.json` exists (P6), factory scripts use it and stop leaning on app-tsconfig excludes.
 
 ---
 
@@ -238,10 +242,15 @@ Prompts demand raw JSON only; response is stripped of fences, `JSON.parse`d, zod
 ```ts
 const slug = process.env.BRAND ?? "default";
 const brand = BrandSchema.parse(JSON.parse(readFileSync(`brands/${slug}/brand.json`, "utf8")));
+
+// scheme must be a valid URI scheme: alphanumeric, no hyphens.
+// "default" is a reserved-ish word we alias for clarity; hyphens are stripped.
+const scheme = brand.slug === "default" ? "clubone" : brand.slug.replace(/-/g, "");
+
 export default {
   name: brand.displayName,
   slug: "rn-brand-factory",
-  scheme: brand.slug,
+  scheme,
   ios: { bundleIdentifier: brand.bundleId },
   android: { package: brand.bundleId, adaptiveIcon: { foregroundImage: `./brands/${slug}/assets/adaptive-icon.png`, ... } },
   icon: `./brands/${slug}/assets/icon.png`,
@@ -249,7 +258,7 @@ export default {
   extra: { brand },
 };
 ```
-Missing/invalid brand ⇒ config throws ⇒ nothing builds. That's intentional.
+Scheme contract: `scheme = slug.replace(/-/g,"")`, with `default → "clubone"`. URI schemes can't contain hyphens, so `cafe-aurora` becomes `cafeaurora`. Missing/invalid brand ⇒ config throws ⇒ nothing builds. That's intentional.
 
 ---
 
