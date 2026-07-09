@@ -13,7 +13,8 @@
     "check:tokens": "bash scripts/check-token-leaks.sh",
     "check:brands": "tsx scripts/check-brands.ts",
     "factory:assets": "tsx factory/steps/assets.ts",
-    "factory:palette": "tsx factory/steps/palette.ts"
+    "factory:palette": "tsx factory/steps/palette.ts",
+    "factory:contrast": "tsx factory/steps/contrast.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

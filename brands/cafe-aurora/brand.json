@@ -3,15 +3,18 @@
   "slug": "cafe-aurora",
   "bundleId": "com.rnbrandfactory.cafeaurora",
   "tagline": "Your morning, rewarded.",
-  "locales": ["en", "de"],
+  "locales": [
+    "en",
+    "de"
+  ],
   "logo": "logo.svg",
   "colors": {
-    "primary": "#4A1E0A",
-    "onPrimary": "#FAF3E0",
-    "secondary": "#C48B3C",
-    "accent": "#D4856A",
-    "background": "#FAF5EE",
-    "surface": "#FFF8F0",
-    "onSurface": "#1A0D05"
+    "primary": "#3D1A0A",
+    "onPrimary": "#F5ECD7",
+    "secondary": "#7B4A2D",
+    "accent": "#502010",
+    "background": "#FAF4E8",
+    "surface": "#F5ECD7",
+    "onSurface": "#2C1206"
   }
 }
