@@ -12,9 +12,11 @@
     "typecheck": "tsc --noEmit",
     "check:tokens": "bash scripts/check-token-leaks.sh",
     "check:brands": "tsx scripts/check-brands.ts",
-    "factory:assets": "tsx factory/steps/assets.ts"
+    "factory:assets": "tsx factory/steps/assets.ts",
+    "factory:palette": "tsx factory/steps/palette.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
     "@expo-google-fonts/inter": "^0.4.2",
     "@expo/vector-icons": "^15.0.3",
     "@react-navigation/bottom-tabs": "^7.4.0",

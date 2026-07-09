@@ -91,5 +91,8 @@ export default {
   },
   extra: {
     brand,
+    logoSvg: fs.existsSync(path.join(brandDir, brand.logo))
+      ? fs.readFileSync(path.join(brandDir, brand.logo), 'utf-8')
+      : null,
   },
 };
