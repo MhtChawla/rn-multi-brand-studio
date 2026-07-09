@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "paths": {
+      "../../src/brand/schema": ["../src/brand/schema.ts"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["dist", "node_modules"]
+}
