@@ -1,50 +1,59 @@
-# Welcome to your Expo app 👋
+# 🚀 RN Multi Brand Studio
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> Generate production-ready, white-label React Native apps from a single Expo codebase.
 
-## Get started
+Drop a logo. Provide a brand name. Get a fully branded mobile app in minutes.
 
-1. Install dependencies
+![App Preview](./preview.png)
 
-   ```bash
-   npm install
-   ```
+**One Expo codebase. One command. Infinite brands.**
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## ✨ What is this?
 
-In the output, you'll find options to open the app in a
+`rn-multi-brand-studio` is an AI-powered white-label app generation pipeline that transforms a generic React Native app into a fully branded, store-ready application.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+```
+# 1. Export ANTHROPIC key & cmd to generate
+export ANTHROPIC_API_KEY=sk-ant-...
+cp ~/my-logo.svg brands/my-brand/logo.svg
+npx tsx factory/steps/assets.ts --brand my-brand
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+# 2. Brand new app's ready. Build and test
+BRAND=my-brand npx expo start -c
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The system uses AI + automation to:
 
-## Learn more
+- Analyze brand identity from a logo
+- Generate a complete design system
+- Create app assets
+- Validate accessibility
+- Generate platform configurations
+- Prepare builds and store assets
 
-To learn more about developing your project with Expo, look at the following resources:
+The goal:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+> Build once. Ship unlimited branded apps.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🎯 The Problem
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Building white-label apps usually means:
+
+- Maintaining multiple repositories
+- Manually updating themes
+- Creating app icons repeatedly
+- Managing splash screens
+- Repeating store preparation steps
+- Risking inconsistent branding
+
+This project explores:
+
+**"Can AI automate the entire white-label mobile app lifecycle?"**
+
+---
+
+## 🏗️ Architecture
