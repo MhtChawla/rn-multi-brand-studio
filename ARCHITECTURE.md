@@ -84,10 +84,11 @@ rn-brand-factory/
 │   │   ├── assets/                 generated: icon.png, adaptive-icon.png,
 │   │   │                           adaptive-icon-bg.png, splash.png, favicon.png
 │   │   ├── store/                  [P9]  {de,en}/description.txt, keywords.txt,
-│   │   │                                 release-notes.txt, title.txt, subtitle.txt
+│   │   │                                 releaseNotes.txt, title.txt, subtitle.txt
 │   │   └── screenshots/            [P10] {de,en}/01-home.png … 05-profile.png (framed)
 │   ├── cafe-aurora/                [P5]  same shape
-│   └── gym-forge/                  [P5]  same shape
+│   ├── gym-forge/                  [P5]  same shape
+│   └── ice-creamery/               [P5]  same shape
 ├── factory/
 │   ├── cli.ts                      [P11] `factory new` — chains steps 6–10
 │   ├── steps/
@@ -231,7 +232,7 @@ Chain: palette → contrast → write brand.json → assets → copy → (screen
 ### 3.5 LLM structured-output helper (`factory/lib/llm.ts`)
 
 ```ts
-structuredOutput<T>(schema: ZodSchema<T>, system: string, user: Content, maxRetries = 3): Promise<T>
+structuredOutput<T>(schema: ZodSchema<T>, system: string, user: Content, maxRetries = 3, maxTokens = 512): Promise<T>
 ```
 Prompts demand raw JSON only; response is stripped of fences, `JSON.parse`d, zod-parsed; on failure the zod error text is fed back into a retry turn. Temperature 0.2. This one function is the reliability backbone for phases 7 and 9.
 
