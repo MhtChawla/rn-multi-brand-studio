@@ -1,0 +1,19 @@
+appId: com.rnbrandfactory.club
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home-screen"
+    timeout: 5000
+- tapOn:
+    id: "tab-card"
+- extendedWaitUntil:
+    visible:
+      id: "card-screen"
+    timeout: 5000
+- extendedWaitUntil:
+    visible:
+      id: "membership-qr-card"
+    timeout: 5000
+- waitForAnimationToSettle
+- takeScreenshot: 03-card

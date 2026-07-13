@@ -15,7 +15,8 @@
     "factory:assets": "tsx --tsconfig factory/tsconfig.json factory/steps/assets.ts",
     "factory:palette": "tsx --tsconfig factory/tsconfig.json factory/steps/palette.ts",
     "factory:contrast": "tsx --tsconfig factory/tsconfig.json factory/steps/contrast.ts",
-    "factory:copy": "tsx --tsconfig factory/tsconfig.json factory/steps/copy.ts"
+    "factory:copy": "tsx --tsconfig factory/tsconfig.json factory/steps/copy.ts",
+    "factory:screenshots": "tsx --tsconfig factory/tsconfig.json factory/steps/screenshots.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

@@ -1,0 +1,15 @@
+appId: com.rnbrandfactory.club
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home-screen"
+    timeout: 5000
+- tapOn:
+    id: "tab-activity"
+- extendedWaitUntil:
+    visible:
+      id: "activity-screen"
+    timeout: 5000
+- waitForAnimationToSettle
+- takeScreenshot: 04-activity

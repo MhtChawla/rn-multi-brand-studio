@@ -1,0 +1,20 @@
+appId: com.rnbrandfactory.club
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "home-screen"
+    timeout: 5000
+- tapOn:
+    id: "tab-rewards"
+- extendedWaitUntil:
+    visible:
+      id: "rewards-screen"
+    timeout: 5000
+- scrollUntilVisible:
+    element:
+      id: "reward-card-r-002"
+    direction: DOWN
+    timeout: 5000
+- waitForAnimationToSettle
+- takeScreenshot: 02-rewards
