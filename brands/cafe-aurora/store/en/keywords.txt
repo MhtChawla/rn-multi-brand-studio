@@ -1,0 +1,1 @@
+cafe,coffee,rewards,loyalty,points,membership,perks,tier,qr,morning,pastry,drinks

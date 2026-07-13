@@ -1,0 +1,1 @@
+This release adds tier progression tracking with a clear points-to-next-level indicator, improves QR code load time at checkout, and fixes a display issue in activity history where some transactions appeared out of order.

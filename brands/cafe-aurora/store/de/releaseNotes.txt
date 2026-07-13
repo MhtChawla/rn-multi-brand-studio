@@ -1,0 +1,1 @@
+Version 1.0 – Erstveröffentlichung der Café Aurora App. Punkte sammeln, Stufen erreichen, Prämien einlösen und den digitalen Mitgliedsausweis mit QR-Code nutzen. Aktivitätsverlauf zeigt alle Buchungen auf einen Blick.

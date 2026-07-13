@@ -1,0 +1,1 @@
+Diese Version bringt eine überarbeitete Ansicht für den Aktivitätsverlauf sowie kleinere Verbesserungen bei der Darstellung der Mitgliedskarte. Ladezeiten beim Einlösen von Prämien wurden verkürzt. Bekannte Fehler bei der Stufenberechnung sind behoben.

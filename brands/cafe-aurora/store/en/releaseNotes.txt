@@ -1,0 +1,1 @@
+This release improves QR code display reliability on older devices, speeds up activity history loading, and fixes a rare issue where points from a redemption order were counted twice. Tier status now updates immediately after a qualifying purchase rather than at the next app launch.

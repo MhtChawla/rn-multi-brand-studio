@@ -92,6 +92,7 @@ export async function structuredOutput<T>(
   system: string,
   userContent: string | UserContentBlock[],
   maxRetries = 3,
+  maxTokens = MAX_TOKENS,
 ): Promise<T> {
   const cfg = getClient();
 
@@ -119,7 +120,7 @@ export async function structuredOutput<T>(
 
     const response = await cfg.client.messages.create({
       model: cfg.model,
-      max_tokens: MAX_TOKENS,
+      max_tokens: maxTokens,
       temperature: TEMPERATURE,
       system: systemPrompt,
       messages,

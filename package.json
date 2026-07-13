@@ -12,9 +12,10 @@
     "typecheck": "tsc --noEmit",
     "check:tokens": "bash scripts/check-token-leaks.sh",
     "check:brands": "tsx scripts/check-brands.ts",
-    "factory:assets": "tsx factory/steps/assets.ts",
-    "factory:palette": "tsx factory/steps/palette.ts",
-    "factory:contrast": "tsx factory/steps/contrast.ts"
+    "factory:assets": "tsx --tsconfig factory/tsconfig.json factory/steps/assets.ts",
+    "factory:palette": "tsx --tsconfig factory/tsconfig.json factory/steps/palette.ts",
+    "factory:contrast": "tsx --tsconfig factory/tsconfig.json factory/steps/contrast.ts",
+    "factory:copy": "tsx --tsconfig factory/tsconfig.json factory/steps/copy.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

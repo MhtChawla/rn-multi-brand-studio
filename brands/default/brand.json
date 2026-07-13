@@ -3,11 +3,14 @@
   "slug": "default",
   "bundleId": "com.rnbrandfactory.club",
   "tagline": "Rewards for showing up.",
-  "locales": ["en", "de"],
+  "locales": [
+    "en",
+    "de"
+  ],
   "logo": "logo.svg",
   "colors": {
     "primary": "#6366F1",
-    "onPrimary": "#FFFFFF",
+    "onPrimary": "#ffffff",
     "secondary": "#8B5CF6",
     "accent": "#06B6D4",
     "background": "#0B0C1E",
