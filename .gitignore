@@ -41,3 +41,7 @@ app-example
 # generated native folders
 /ios
 /android
+
+# fastlane — staged metadata and screenshots are generated; never commit
+fastlane/metadata/
+fastlane/screenshots/

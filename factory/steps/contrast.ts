@@ -187,6 +187,52 @@ export const contrastStep: FactoryStep = async (
   return { ok: true, wrote, warnings };
 };
 
+// ── Check-only mode (--check flag) ────────────────────────────────────────
+//
+// Reads brand.draft.json (falls back to brand.json), computes ratios WITHOUT
+// adjusting colors or writing files. Exits 1 if any pair is below its target.
+// Used by CI to gate on pre-existing brand.json quality.
+
+async function checkContrastOnly(ctx: FactoryContext): Promise<void> {
+  const draftPath     = path.join(ctx.brandDir, 'brand.draft.json');
+  const brandJsonPath = path.join(ctx.brandDir, 'brand.json');
+  const sourcePath = fs.existsSync(draftPath) ? draftPath : brandJsonPath;
+
+  if (!fs.existsSync(sourcePath)) {
+    process.stderr.write(
+      `Error: neither brand.draft.json nor brand.json found in brands/${ctx.slug}\n`,
+    );
+    process.exit(1);
+  }
+
+  const source = BrandSchema.parse(JSON.parse(fs.readFileSync(sourcePath, 'utf-8')));
+  ctx.log(`Source: ${path.relative(REPO_ROOT, sourcePath)}`);
+
+  const results: PairResult[] = PAIRS.map((pair) => {
+    const ratio = contrastRatio(source.colors[pair.fg], source.colors[pair.bg]);
+    return {
+      label: pair.label,
+      target: pair.target,
+      before: ratio,
+      after: ratio,
+      adjusted: false,
+      pass: ratio >= pair.target,
+    };
+  });
+
+  process.stdout.write('\n  WCAG contrast report (check — no writes):\n');
+  printTable(results);
+
+  const failing = results.filter((r) => !r.pass);
+  if (failing.length > 0) {
+    process.stderr.write(
+      `\n❌  ${failing.length} pair(s) fail WCAG contrast for "${ctx.slug}"\n`,
+    );
+    process.exit(1);
+  }
+  process.stdout.write(`\n✅  All pairs pass for "${ctx.slug}"\n`);
+}
+
 // ── Standalone runner ──────────────────────────────────────────────────────
 
 if (require.main === module) {
@@ -195,6 +241,7 @@ if (require.main === module) {
   const rawSlug: string | undefined =
     brandFlagIdx !== -1 ? args[brandFlagIdx + 1] : undefined;
   const slug = rawSlug ?? 'default';
+  const checkMode = args.includes('--check');
 
   const dir = brandDir(slug);
   const ctx: FactoryContext = {
@@ -204,26 +251,34 @@ if (require.main === module) {
     log: (msg: string) => process.stdout.write(`  ${msg}\n`),
   };
 
-  contrastStep(ctx)
-    .then((result) => {
-      if (result.warnings.length > 0) {
-        process.stdout.write('\n  Warnings:\n');
-        for (const w of result.warnings) {
-          process.stdout.write(`  ⚠️  ${w}\n`);
-        }
-      }
-      if (!result.ok) {
-        process.stderr.write(`\n❌  contrast step failed for "${slug}"\n`);
-        process.exit(1);
-      }
-      process.stdout.write(`\n✅  contrast step complete for "${slug}"\n`);
-      for (const p of result.wrote) {
-        process.stdout.write(`    wrote  ${path.relative(REPO_ROOT, p)}\n`);
-      }
-    })
-    .catch((err: unknown) => {
+  if (checkMode) {
+    checkContrastOnly(ctx).catch((err: unknown) => {
       const msg = err instanceof Error ? err.message : String(err);
       process.stderr.write(`\nFatal: ${msg}\n`);
       process.exit(1);
     });
+  } else {
+    contrastStep(ctx)
+      .then((result) => {
+        if (result.warnings.length > 0) {
+          process.stdout.write('\n  Warnings:\n');
+          for (const w of result.warnings) {
+            process.stdout.write(`  ⚠️  ${w}\n`);
+          }
+        }
+        if (!result.ok) {
+          process.stderr.write(`\n❌  contrast step failed for "${slug}"\n`);
+          process.exit(1);
+        }
+        process.stdout.write(`\n✅  contrast step complete for "${slug}"\n`);
+        for (const p of result.wrote) {
+          process.stdout.write(`    wrote  ${path.relative(REPO_ROOT, p)}\n`);
+        }
+      })
+      .catch((err: unknown) => {
+        const msg = err instanceof Error ? err.message : String(err);
+        process.stderr.write(`\nFatal: ${msg}\n`);
+        process.exit(1);
+      });
+  }
 }

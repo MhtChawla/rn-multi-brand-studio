@@ -1,0 +1,63 @@
+name: Brand build (EAS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      brand:
+        description: 'Brand slug to build'
+        required: true
+        default: 'default'
+      platform:
+        description: 'Target platform'
+        required: true
+        default: 'android'
+        type: choice
+        options:
+          - android
+          - ios
+          - all
+      profile:
+        description: 'EAS build profile'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Validate brand exists
+        run: |
+          if [ ! -f "brands/${{ github.event.inputs.brand }}/brand.json" ]; then
+            echo "Error: brands/${{ github.event.inputs.brand }}/brand.json not found"
+            exit 1
+          fi
+
+      - name: Build with EAS
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          npx eas-cli build \
+            --non-interactive \
+            --platform ${{ github.event.inputs.platform }} \
+            --profile ${{ github.event.inputs.profile }} \
+            --env BRAND=${{ github.event.inputs.brand }}
+
+      - name: Upload store assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: store-assets-${{ github.event.inputs.brand }}
+          path: brands/${{ github.event.inputs.brand }}/store/
+          if-no-files-found: warn

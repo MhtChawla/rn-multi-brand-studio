@@ -1,0 +1,64 @@
+# frozen_string_literal: true
+
+require 'fileutils'
+
+LOCALE_MAP = { 'en' => 'en-US', 'de' => 'de-DE' }.freeze
+
+# src field name → fastlane metadata filename (without .txt)
+FIELD_RENAMES = {
+  'title'        => 'name',
+  'subtitle'     => 'subtitle',
+  'description'  => 'description',
+  'keywords'     => 'keywords',
+  'releaseNotes' => 'release_notes',
+}.freeze
+
+# Copies store-copy .txt files from brands/<brand>/store/<locale>/
+# into fastlane/metadata/<locale>/, applying fastlane field-name conventions.
+# Called by both ios_metadata and android_metadata before uploading.
+def stage_metadata(brand:)
+  repo_root  = File.expand_path('..', __dir__)
+  meta_root  = File.join(__dir__, 'metadata')
+  store_root = File.join(repo_root, 'brands', brand, 'store')
+
+  LOCALE_MAP.each do |src_locale, dst_locale|
+    src_dir = File.join(store_root, src_locale)
+    next unless Dir.exist?(src_dir)
+
+    dst_dir = File.join(meta_root, dst_locale)
+    FileUtils.mkdir_p(dst_dir)
+
+    FIELD_RENAMES.each do |src_name, dst_name|
+      src = File.join(src_dir, "#{src_name}.txt")
+      FileUtils.cp(src, File.join(dst_dir, "#{dst_name}.txt")) if File.exist?(src)
+    end
+  end
+
+  UI.success "Staged metadata for brand '#{brand}'"
+end
+
+# ── iOS ───────────────────────────────────────────────────────────────────────
+
+lane :ios_metadata do |options|
+  brand = options[:brand] || ENV['BRAND'] || 'default'
+  stage_metadata(brand: brand)
+  deliver(
+    skip_binary_upload: true,
+    skip_screenshots:   true,
+    force:              true,
+  )
+end
+
+# ── Android ───────────────────────────────────────────────────────────────────
+
+lane :android_metadata do |options|
+  brand = options[:brand] || ENV['BRAND'] || 'default'
+  stage_metadata(brand: brand)
+  supply(
+    skip_upload_apk:         true,
+    skip_upload_aab:         true,
+    skip_upload_images:      true,
+    skip_upload_screenshots: true,
+    validate_only:           true,
+  )
+end

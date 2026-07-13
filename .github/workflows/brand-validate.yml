@@ -1,0 +1,73 @@
+name: Brand validation
+
+on:
+  pull_request:
+    paths:
+      - 'brands/**'
+      - 'src/**'
+      - 'app/**'
+      - 'factory/**'
+      - 'app.config.ts'
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Token leak check
+        run: npm run check:tokens
+
+      - name: Brand schema check
+        run: npm run check:brands
+
+      - name: Bundle ID uniqueness
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const brands = fs.readdirSync('brands').filter(d => fs.existsSync(path.join('brands', d, 'brand.json')));
+          const ids = brands.map(slug => ({ slug, id: JSON.parse(fs.readFileSync(path.join('brands', slug, 'brand.json'), 'utf8')).bundleId }));
+          const seen = {};
+          let dup = false;
+          for (const { slug, id } of ids) {
+            if (seen[id]) { console.error('Duplicate bundleId ' + id + ' in ' + seen[id] + ' and ' + slug); dup = true; }
+            seen[id] = slug;
+          }
+          if (dup) process.exit(1);
+          console.log('Bundle IDs unique: ' + ids.map(x => x.id).join(', '));
+          "
+
+      - name: WCAG contrast gate
+        run: |
+          for brand in $(ls brands/); do
+            if [ -f "brands/$brand/brand.json" ]; then
+              echo "Checking contrast: $brand"
+              npx tsx --tsconfig factory/tsconfig.json factory/steps/contrast.ts --brand "$brand" --check
+            fi
+          done
+
+      - name: Expo config sanity
+        run: |
+          for brand in $(ls brands/); do
+            if [ -f "brands/$brand/brand.json" ]; then
+              echo "Expo config: $brand"
+              BRAND="$brand" npx expo config --type public > /dev/null
+            fi
+          done
