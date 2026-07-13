@@ -34,7 +34,7 @@ export function loadBrand(): BrandConfig {
   return cached;
 }
 
-export function loadLogoSvg(): string | null {
-  const raw: unknown = Constants.expoConfig?.extra?.['logoSvg'];
+export function loadLogoPng(): string | null {
+  const raw: unknown = Constants.expoConfig?.extra?.['logoPng'];
   return typeof raw === 'string' ? raw : null;
 }

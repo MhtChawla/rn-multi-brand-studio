@@ -1,0 +1,20 @@
+{
+  "displayName": "Ice Creamery",
+  "slug": "ice-creamery",
+  "bundleId": "com.rnbrandfactory.icecreamery",
+  "tagline": "Rewards that matter.",
+  "locales": [
+    "en",
+    "de"
+  ],
+  "logo": "logo.svg",
+  "colors": {
+    "primary": "#f8d0d0",
+    "onPrimary": "#ffffff",
+    "secondary": "#f8d0d0",
+    "accent": "#e86565",
+    "background": "#FDF6F0",
+    "surface": "#FFFFFF",
+    "onSurface": "#3E1F10"
+  }
+}
